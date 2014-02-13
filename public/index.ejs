@@ -1,0 +1,88 @@
+<!doctype html>
+
+<title>350 Mission</title>
+
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.min.js'></script>
+<script src='/js/app.js'></script>
+
+<style>
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: black;
+}
+
+h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  margin: 0;
+  background-color: white;
+  color: black;
+  opacity: 0.8;
+  z-index: 100;
+}
+
+.loading {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  margin-left: -110px;
+}
+
+.pics img.main-pic {
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.pics .count {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  opacity: 0.8;
+  color: black;
+  padding: 10px;
+  cursor: pointer;
+}
+</style>
+
+<body ng-app='webcam'>
+
+<script type='text/ng-template' id='pics.html'>
+  <div class='pics' wc-keys='{37: "prevImage()", 39: "nextImage()"}'>
+    <img class='main-pic' ng-src="{{image}}">
+    <div class='count' ng-show='totalImages'>
+      {{currentImageNumber}} / {{totalImages}}
+      | <a href='' ng-click='imagePrompt()'>Go to...</a>
+    </div>
+  </div>
+</script>
+
+<a href="https://github.com/BinaryMuse/350mission-webcam"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 101" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
+<h1>350 Mission</h1>
+
+<div ng-view>
+</div>
+
+<div ng-controller='RoutingController'>
+  <img class='loading' src='/loading.gif' ng-show='loading'>
+</div>
+
+</body>

@@ -1,0 +1,20 @@
+{
+  "name": "webcam-pic-saver",
+  "version": "0.0.0",
+  "description": "Save pictures from http://ibeamsystems.com/private/350mission/ every 15 minutes",
+  "scripts": {
+    "start": "coffee index.coffee"
+  },
+  "author": "Brandon Tilley <brandon@brandontilley.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "coffee-script": "~1.7.1",
+    "request": "~2.33.0",
+    "levelup": "~0.18.2",
+    "leveldown": "~0.10.2",
+    "express": "~3.4.8",
+    "harp": "~0.11.2",
+    "bytewise": "~0.7.0"
+  }
+}
