@@ -87,13 +87,15 @@ app.controller 'RoutingController', ($location, $scope, $window) ->
       $location.url '/images'
 
 app.controller 'PicsController', ($scope, $interval, $window, $routeParams, $location, image, album) ->
+  $scope.pinned = album.pinned
   $scope.image = image
   $scope.currentImageNumber = parseInt $routeParams.id, 10
   album.images().then (imgs) ->
     $scope.totalImages = imgs.length
 
-  switchToImage = (number) ->
+  switchToImage = (number, removePinned = true) ->
     return if number <= 0 || number > $scope.totalImages
+    $scope.pinned = album.pinned = false if removePinned
     $location.url "/images/#{number}"
 
   $scope.imagePrompt = ->
@@ -108,9 +110,16 @@ app.controller 'PicsController', ($scope, $interval, $window, $routeParams, $loc
   $scope.nextImage = ->
     switchToImage $scope.currentImageNumber + 1
 
+  $scope.togglePinned = ->
+    $scope.pinned = !$scope.pinned
+    album.pinned = $scope.pinned
+    if $scope.pinned
+      switchToImage $scope.totalImages, false
+
   interval = $interval ->
     album.refresh().then (imgs) ->
       $scope.totalImages = imgs.length
+      switchToImage $scope.totalImages, false if $scope.pinned
   , 2 * 60 * 1000
 
   $scope.$on '$destroy', -> $interval.cancel interval

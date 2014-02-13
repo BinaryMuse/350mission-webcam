@@ -60,6 +60,25 @@ h1 {
   padding: 10px;
   cursor: pointer;
 }
+
+.pics .pin-container {
+  opacity: 0.4;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.pics .pin-container.pinned {
+  opacity: 1;
+}
+
+.pics .pin {
+  width: 16px;
+  height: 16px;
+}
+
+.pics .current-image-number.pinned {
+  opacity: 0.5;
+}
 </style>
 
 <body ng-app='webcam'>
@@ -68,7 +87,11 @@ h1 {
   <div class='pics' wc-keys='{37: "prevImage()", 39: "nextImage()"}'>
     <img class='main-pic' ng-src="{{image}}">
     <div class='count' ng-show='totalImages'>
-      {{currentImageNumber}} / {{totalImages}}
+      <div class='pin-container' ng-class='{pinned: pinned}' ng-click='togglePinned()'
+        title='Pin to most recent image'>
+        <img class='pin' src='/pin.png'>
+      </div>
+      <span class='current-image-number' ng-class='{pinned: pinned}'>{{currentImageNumber}}</span> / {{totalImages}}
       | <a href='' ng-click='imagePrompt()'>Go to...</a>
     </div>
   </div>
