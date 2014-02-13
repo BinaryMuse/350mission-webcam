@@ -6,6 +6,7 @@ app.config ($routeProvider) ->
       resolve:
         image: ($route, $location, album) ->
           album.images().then (imgs) ->
+            $location.replace()
             $location.url "/images/#{imgs.length}"
     .when '/images/:id',
       controller: 'PicsController'
@@ -82,6 +83,7 @@ app.controller 'RoutingController', ($location, $scope, $window) ->
     $scope.loading = false
 
     if !$scope.anythingEverLoaded
+      $location.replace()
       $location.url '/images'
 
 app.controller 'PicsController', ($scope, $interval, $window, $routeParams, $location, image, album) ->
