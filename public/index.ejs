@@ -62,13 +62,8 @@ h1 {
 }
 
 .pics .pin-container {
-  opacity: 0.4;
   cursor: pointer;
   display: inline-block;
-}
-
-.pics .pin-container.pinned {
-  opacity: 1;
 }
 
 .pics .pin {
@@ -76,7 +71,7 @@ h1 {
   height: 16px;
 }
 
-.pics .current-image-number.pinned {
+.pics .dimmed {
   opacity: 0.5;
 }
 </style>
@@ -87,11 +82,13 @@ h1 {
   <div class='pics' wc-keys='{37: "prevImage()", 39: "nextImage()"}'>
     <img class='main-pic' ng-src="{{image}}">
     <div class='count' ng-show='totalImages'>
-      <div class='pin-container' ng-class='{pinned: pinned}' ng-click='togglePinned()'
+      <span ng-class='{dimmed: pinned}' ng-click='prevImage()'>&#x25c0;</span>
+      <span class='current-image-number' ng-class='{dimmed: pinned}'>{{currentImageNumber}}</span> / {{totalImages}}
+      <div class='pin-container' ng-class='{dimmed: !pinned}' ng-click='togglePinned()'
         title='Pin to most recent image'>
         <img class='pin' src='/pin.png'>
       </div>
-      <span class='current-image-number' ng-class='{pinned: pinned}'>{{currentImageNumber}}</span> / {{totalImages}}
+      <span ng-class='{dimmed: pinned}' ng-click='nextImage()'>&#x25b6;</span>
       | <a href='' ng-click='imagePrompt()'>Go to...</a>
     </div>
   </div>

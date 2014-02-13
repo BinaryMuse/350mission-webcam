@@ -33,6 +33,7 @@ app.factory 'pics', ($http) ->
 
 app.factory 'album', ($q, $rootScope, pics) ->
   _promise: null
+  pinned: true
 
   images: ->
     @_promise || @refresh()
